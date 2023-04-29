@@ -1,9 +1,13 @@
 import React from "react";
+import { useEscapeKey } from "../../hooks";
 
 export const ToastContext = React.createContext();
 
 function ToastProvider({ children }) {
   const [toasts, setToasts] = React.useState([]);
+
+  const removeAll = React.useCallback(() => setToasts([]), []);
+  useEscapeKey(removeAll);
 
   const addToast = React.useCallback((message, variant) => {
     const id = crypto.randomUUID();
@@ -17,8 +21,6 @@ function ToastProvider({ children }) {
       ),
     []
   );
-
-  const removeAll = React.useCallback(() => setToasts([]), []);
 
   const providerData = React.useMemo(
     () => ({ toasts, addToast, removeToast, removeAll }),
