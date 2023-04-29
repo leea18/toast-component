@@ -18,9 +18,11 @@ function ToastProvider({ children }) {
     []
   );
 
+  const removeAll = React.useCallback(() => setToasts([]), []);
+
   const providerData = React.useMemo(
-    () => ({ toasts, addToast, removeToast }),
-    [toasts, addToast, removeToast]
+    () => ({ toasts, addToast, removeToast, removeAll }),
+    [toasts, addToast, removeToast, removeAll]
   );
 
   return (
